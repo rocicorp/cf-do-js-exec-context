@@ -21,7 +21,7 @@ const worker = {
       "worker",
       JSON.stringify([...request.headers.entries()], undefined, 2)
     );
-    const responseText = `Worker js exec context id: ${jsExecContextID}.
+    const responseText = `Worker js exec context id: ${jsExecContextID}
 DOClass1 ${doName1} js exec context id: ${await (
       await env.doClass1.get(env.doClass1.idFromName(doName1)).fetch(request)
     ).text()}
