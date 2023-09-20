@@ -1,0 +1,13 @@
+name = "cf-do-js-exec-context-test"
+main = "src/index.ts"
+compatibility_date = "2023-09-19"
+
+[durable_objects]
+bindings = [
+  { name = "doClass1", class_name = "DOClass1" },
+  { name = "doClass2", class_name = "DOClass2" },
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["DOClass1",  "DOClass2"]
