@@ -32,7 +32,7 @@ JavaScript execution contexts.
 ```bash
 npm install
 
-wrangler dev
+npx wrangler dev
 
 # Then open http://localhost:8787?name1=foo&name2=bar in your browser of choice.
 ```
@@ -42,7 +42,7 @@ wrangler dev
 ```
 npm install
 
-wrangler publish
+npx wrangler publish
 
 # Then open the url for the worker output by the above wrangler publish command.
 # Like https://cf-do-js-exec-context-test.my-team.workers.dev?name1=foo&name2=bar

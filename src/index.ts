@@ -22,25 +22,44 @@ const worker = {
       JSON.stringify([...request.headers.entries()], undefined, 2)
     );
     const responseText = `Worker js exec context id: ${jsExecContextID}
-DOClass1 ${doName1} js exec context id: ${await (
+DOClass1 ${doName1} response: ${await (
       await env.doClass1.get(env.doClass1.idFromName(doName1)).fetch(request)
     ).text()}
-DOClass2 ${doName2} js exec context id: ${await (
+DOClass2 ${doName2} response: ${await (
       await env.doClass2.get(env.doClass2.idFromName(doName2)).fetch(request)
-    ).text()}`;
+    ).text()}
+DOClass1 ${doName1} response: ${await (
+      await env.doClass1.get(env.doClass1.idFromName(doName1)).fetch(request)
+    ).text()}
+DOClass2 ${doName2} response: ${await (
+      await env.doClass2.get(env.doClass2.idFromName(doName2)).fetch(request)
+    ).text()}
+  `;
     return new Response(responseText);
   },
 };
 
 class DOClass1 implements DurableObject {
-  async fetch(request: Request): Promise<Response> {
-    return new Response(jsExecContextID);
+  #id: string;
+  constructor(readonly state: DurableObjectState, readonly env: Env) {
+    this.#id = randomID();
+  }
+  async fetch(_: Request): Promise<Response> {
+    return new Response(
+      `DO id: ${this.#id}, js context id: ${jsExecContextID}`
+    );
   }
 }
 
 class DOClass2 implements DurableObject {
-  async fetch(request: Request): Promise<Response> {
-    return new Response(jsExecContextID);
+  #id: string;
+  constructor(readonly state: DurableObjectState, readonly env: Env) {
+    this.#id = randomID();
+  }
+  async fetch(_: Request): Promise<Response> {
+    return new Response(
+      `DO id: ${this.#id}, js context id: ${jsExecContextID}`
+    );
   }
 }
 
